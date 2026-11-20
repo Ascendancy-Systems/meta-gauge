@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>GMG-A — Experimental Spatial Meta-Gauge</title>
+  <style>
+    :root { color-scheme: dark; --void:#080c11; --panel:#111821; --line:#33404b; --text:#d6dce3; --muted:#94a0aa; --copper:#9a6b47; --gold:#c6a96b; }
+    * { box-sizing: border-box; }
+    body { margin:0; min-height:100vh; color:var(--text); background:radial-gradient(circle at 50% 22%,#18232d 0,#0b1117 45%,var(--void) 78%); font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; }
+    a { color:#b8d5e5; }
+    .shell { width:min(1180px,100%); margin:auto; padding:clamp(14px,3vw,34px); }
+    header { display:flex; align-items:flex-start; justify-content:space-between; gap:20px; border-bottom:1px solid var(--line); padding-bottom:14px; }
+    h1 { margin:0; font:600 clamp(22px,3.2vw,36px)/1.1 Georgia,serif; letter-spacing:.05em; }
+    .eyebrow { color:var(--gold); text-transform:uppercase; letter-spacing:.16em; font-size:12px; }
+    .badge { border:1px solid var(--copper); padding:7px 10px; color:#e2cfa7; text-align:center; font-size:12px; }
+    .notice { margin:14px 0; padding:10px 12px; border-left:3px solid var(--gold); background:#111820; color:#cbd1d7; }
+    .layout { display:grid; grid-template-columns:minmax(0,1fr) minmax(260px,330px); gap:20px; align-items:start; }
+    .viewport { position:relative; min-width:0; border:1px solid var(--line); background:rgba(5,9,13,.7); box-shadow:inset 0 0 70px rgba(0,0,0,.65); }
+    canvas { width:100%; height:auto; aspect-ratio:1; display:block; touch-action:none; cursor:crosshair; }
+    .viewport-caption { position:absolute; left:12px; bottom:10px; color:var(--muted); font-size:12px; pointer-events:none; }
+    aside { display:grid; gap:12px; }
+    fieldset, .panel { margin:0; border:1px solid var(--line); background:rgba(16,23,31,.94); padding:12px; }
+    legend { color:var(--gold); padding:0 6px; text-transform:uppercase; letter-spacing:.12em; font-size:11px; }
+    label { display:grid; grid-template-columns:1fr auto; gap:8px; margin:8px 0 3px; color:#c7ced5; }
+    output { color:#fff; font-variant-numeric:tabular-nums; }
+    input[type=range] { width:100%; accent-color:var(--gold); }
+    select, button { min-height:38px; border:1px solid #54616b; background:#17212b; color:var(--text); padding:7px 10px; border-radius:2px; }
+    button:hover, button:focus-visible, select:focus-visible, input:focus-visible { outline:2px solid #b8d5e5; outline-offset:2px; }
+    .button-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+    .readout { display:grid; grid-template-columns:1fr auto; gap:5px 12px; margin:0; }
+    .readout dt { color:var(--muted); }
+    .readout dd { margin:0; font-variant-numeric:tabular-nums; text-align:right; }
+    .proposed { opacity:.72; }
+    footer { margin-top:18px; border-top:1px solid var(--line); padding-top:12px; color:var(--muted); font-size:13px; }
+    @media (max-width:760px) { .layout { grid-template-columns:1fr; } header { flex-direction:column; } .badge { text-align:left; } .viewport { order:-1; } }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; animation:none!important; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div><div class="eyebrow">Ascendancy Systems · MG-001 / GMG-A</div><h1>Gyroscopic Meta-Gauge Assembly</h1></div>
+      <div class="badge">v0.2 experimental<br>geometric simulation</div>
+    </header>
+    <p class="notice"><strong>No live telemetry.</strong> Ring poses and angles are geometric simulation. EF-001 is not mapped to rotation, direction, or confidence.</p>
+    <div class="layout">
+      <section class="viewport" aria-label="Interactive spatial instrument">
+        <canvas id="gauge" width="800" height="800" tabindex="0" aria-label="Four-ring spatial gauge. Drag to move the observer or click the visible sphere to aim the reticle."></canvas>
+        <div class="viewport-caption">Drag: observer · Click/tap: reticle · far side occluded</div>
+      </section>
+      <aside>
+        <fieldset>
+          <legend>Observer</legend>
+          <label for="yaw">Yaw <output id="yaw-value">28°</output></label><input id="yaw" type="range" min="-180" max="180" step="1" value="28">
+          <label for="pitch">Pitch <output id="pitch-value">−14°</output></label><input id="pitch" type="range" min="-80" max="80" step="1" value="-14">
+          <div class="button-row"><button id="reset-view" type="button">Reset observer</button></div>
+        </fieldset>
+        <fieldset>
+          <legend>Ring simulation</legend>
+          <label for="ring">Selected ring</label><select id="ring"><option value="Y">Y · Yellow</option><option value="B">B · Blue</option><option value="G">G · Green</option></select>
+          <label for="ring-x">Inclination X <output id="ring-x-value"></output></label><input id="ring-x" type="range" min="-180" max="180" step="1">
+          <label for="ring-y">Azimuth Y <output id="ring-y-value"></output></label><input id="ring-y" type="range" min="-180" max="180" step="1">
+          <label for="ring-phase">Index phase <output id="ring-phase-value"></output></label><input id="ring-phase" type="range" min="0" max="359" step="1">
+          <div class="button-row"><button id="reset-pose" type="button">Reference pose</button></div>
+        </fieldset>
+        <fieldset>
+          <legend>Observer reticle</legend>
+          <label for="reticle-az">Azimuth <output id="reticle-az-value">0°</output></label><input id="reticle-az" type="range" min="-90" max="90" step="1" value="0">
+          <label for="reticle-el">Elevation <output id="reticle-el-value">0°</output></label><input id="reticle-el" type="range" min="-90" max="90" step="1" value="0">
+          <div class="button-row"><button id="center-reticle" type="button">Center reticle</button></div>
+          <p class="proposed"><strong>Proposed, not implemented:</strong> feature inspection, target lock/follow, and two-target comparison.</p>
+        </fieldset>
+        <section class="panel" aria-live="polite"><div class="eyebrow">Geometric readout</div><dl class="readout"><dt>Selected / R plane angle</dt><dd id="angle-readout">—</dd><dt>Reticle direction</dt><dd id="reticle-readout">—</dd><dt>State source</dt><dd id="state-readout">—</dd></dl></section>
+      </aside>
+    </div>
+    <footer>One instrument identity, multiple representations. Static and interactive views derive from the same versioned pose. <a href="./specifications/GMG-A_spatial_perceptual_relational_specification_working_draft_v0.2.md">Specification</a> · <a href="./docs/artifact-provenance.md">Artifact provenance</a></footer>
+  </main>
+  <script type="module" src="./src/app.mjs"></script>
+</body>
+</html>

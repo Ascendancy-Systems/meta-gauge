@@ -1,0 +1,23 @@
+name: Verify GMG-A
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test geometry and state integrity
+        run: npm test
+      - name: Regenerate canonical SVG
+        run: |
+          npm run render
+          git diff --exit-code -- assets/gmg-a-reference-pose-v0.2.svg

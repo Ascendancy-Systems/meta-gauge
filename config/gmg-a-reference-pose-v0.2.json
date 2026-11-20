@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "id": "GMG-A-REFERENCE-POSE-0.2",
+  "status": "experimental-geometric-simulation",
+  "projection": {
+    "type": "orthographic-front-hemisphere",
+    "cameraYawDeg": 28,
+    "cameraPitchDeg": -14,
+    "sphereRadius": 1,
+    "occlusionEpsilon": 0.000001,
+    "sampleCount": 360
+  },
+  "rings": [
+    {
+      "id": "R",
+      "label": "Reference",
+      "color": "#C98C82",
+      "locked": true,
+      "orientationDeg": { "x": 0, "y": 0, "z": 0 },
+      "markerPhaseDeg": 0
+    },
+    {
+      "id": "Y",
+      "label": "Yellow",
+      "color": "#D7BD72",
+      "locked": false,
+      "orientationDeg": { "x": 52, "y": 10, "z": 18 },
+      "markerPhaseDeg": 32
+    },
+    {
+      "id": "B",
+      "label": "Blue",
+      "color": "#6F9FCB",
+      "locked": false,
+      "orientationDeg": { "x": -23, "y": 61, "z": -12 },
+      "markerPhaseDeg": 118
+    },
+    {
+      "id": "G",
+      "label": "Green",
+      "color": "#6A9A8D",
+      "locked": false,
+      "orientationDeg": { "x": 34, "y": -47, "z": 26 },
+      "markerPhaseDeg": 224
+    }
+  ],
+  "reticle": {
+    "mode": "free-aim",
+    "azimuthDeg": 0,
+    "elevationDeg": 0
+  },
+  "semantics": {
+    "sourceCoupling": "none",
+    "liveTelemetry": false,
+    "ef001GeometryMapping": "undefined",
+    "historicalOrientationMapping": "undefined"
+  }
+}
