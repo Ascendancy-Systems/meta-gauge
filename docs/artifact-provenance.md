@@ -8,6 +8,8 @@ The original design conversation, **Mapping Technology Architecture**, records t
 
 The available conversation record exposed sandbox links without downloadable attachments. The original files are pending recovery.
 
+The [preserved MG-001 v0.1 gauge artwork](https://github.com/Ascendancy-Systems/.github/blob/main/assets/gauges/Gauges.md) consists of an SVG template and a mobile PNG. The recovery record below concerns the GMG-A prototype, specification, and archive.
+
 Accordingly:
 
 - This repository does **not** contain reconstructed files under those names.

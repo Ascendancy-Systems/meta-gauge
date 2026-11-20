@@ -48,6 +48,7 @@ Working Draft v0.3 proposes a toroidal dial alongside the spatial assembly. It i
 | `specifications/` | Spatial v0.2 and dual-instrument v0.3 working drafts |
 | [Artifact provenance](./docs/artifact-provenance.md) | Recovery status for the original v0.1 artifacts |
 | `tests/` | Geometry, occlusion, marker, and consistency tests |
+| [Reference-plane snapshots](./snapshots/reference-plane-crossing/) | The [observer-pitch test](./tests/reference-plane-transition.test.mjs) explains why the visible arc changes when the observer crosses the plane. |
 
 ## Run locally
 
@@ -57,14 +58,20 @@ The demonstrator has no runtime dependencies. Serve the repository over HTTP, th
 python -m http.server 8000
 ```
 
-Run the dependency-free geometry tests and regenerate the SVG:
+Run the dependency-free geometry tests with `npm test`. The desktop and mobile layout snapshots can be refreshed with `node scripts/visual-smoke.cjs` when Playwright and Chromium are available.
+
+## Updating the reference pose
+
+Edit the [versioned pose](./config/gmg-a-reference-pose-v0.2.json). The browser reads it directly. The static renderer uses the same geometry to produce the SVG, and the [organization profile](https://github.com/Ascendancy-Systems) displays a PNG rendered from that SVG.
+
+From the repository root, install the locked development tools and regenerate both images.
 
 ```text
-npm test
-npm run render
+npm ci --ignore-scripts
+npm run render:pose
 ```
 
-The SVG is the canonical static projection. To refresh the checked-in PNG, run `node scripts/rasterize-static.cjs` with `sharp` available. The snapshots in `snapshots/` document the desktop and mobile layout. Refresh them with `node scripts/visual-smoke.cjs` with Playwright and Chromium available.
+Review the viewer and the PNG side by side. Stage the pose and both reference images together, then run `npm run check`. Pull requests and Pages deployments run the same check. It regenerates the SVG and checks the PNG byte for byte using the locked renderer and fonts.
 
 GitHub Pages publishes only the browser entry point, its JavaScript, and its pose file. The repository carries the specifications, archived context, tests, and generated assets.
 

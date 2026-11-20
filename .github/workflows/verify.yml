@@ -15,9 +15,6 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: '22'
-      - name: Test geometry and state integrity
-        run: npm test
-      - name: Regenerate canonical SVG
-        run: |
-          npm run render
-          git diff --exit-code -- assets/gmg-a-reference-pose-v0.2.svg
+      - run: npm ci --ignore-scripts
+      - name: Verify geometry and both published reference images
+        run: npm run check
