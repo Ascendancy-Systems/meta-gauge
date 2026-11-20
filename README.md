@@ -2,9 +2,11 @@
 
 Public research prototype for **MG-001**, the registered Ascendancy Systems Meta-Gauge, and **GMG-A**, its experimental gyroscopic/spatial implementation.
 
-**Status:** experimental geometric demonstrator. The geometry works; informational calibration does not yet exist.
+**Status:** experimental geometric demonstrator. The viewer measures angles between simulated planes. The [MG-001 operational record](https://github.com/Ascendancy-Systems/.github/blob/main/profile/META-GAUGE.md) carries the qualitative EF-001 assessment.
 
-[Open the interactive demonstrator](https://ascendancy-systems.github.io/meta-gauge/) · [Read the v0.2 working specification](./specifications/GMG-A_spatial_perceptual_relational_specification_working_draft_v0.2.md) · [Artifact provenance](./docs/artifact-provenance.md)
+[Open the interactive demonstrator](https://ascendancy-systems.github.io/meta-gauge/) · [Read the v0.2 working specification](./specifications/GMG-A_spatial_perceptual_relational_specification_working_draft_v0.2.md) · [Specification index](./specifications/README.md) · [Front Desk](https://ascendancy-systems.github.io/front-desk/)
+
+Working Draft v0.3 proposes a toroidal dial alongside the spatial assembly. It is awaiting ratification and implementation. [Read the dual-instrument draft](./specifications/MG-001_GMG-A_Dual_Instrument_Working_Specification_v0.3.md).
 
 ![GMG-A reference pose](./assets/gmg-a-reference-pose-v0.2.png)
 
@@ -43,7 +45,8 @@ Public research prototype for **MG-001**, the registered Ascendancy Systems Meta
 | `config/gmg-a-reference-pose-v0.2.json` | Versioned reference pose and camera projection |
 | `scripts/render-static.mjs` | Deterministic SVG generator from the same state |
 | `assets/` | Generated reference SVG and mobile-compatible PNG |
-| `specifications/` | Preserved v0.2 working specification and v0.1 availability record |
+| `specifications/` | Spatial v0.2 and dual-instrument v0.3 working drafts |
+| [Artifact provenance](./docs/artifact-provenance.md) | Recovery status for the original v0.1 artifacts |
 | `tests/` | Geometry, occlusion, marker, and consistency tests |
 
 ## Run locally
