@@ -204,6 +204,12 @@ Spontaneous observer-reported perceptual effects shall not be represented as ins
 
 Perceptual experiments may examine whether the apparatus improves recognition of defined relationships.
 
+### Observer-dependent visibility: reference-plane crossing (observed, not a signal)
+
+With the ring poses and observer yaw held constant, changing **observer pitch from −5° to +10°** changes which half of the locked red reference ring appears on the front hemisphere. At yaw 0°, the upper red arc is visible at −5° and the lower red arc at +10°. Near pitch 0°, the ring is approximately viewed face-on and approaches the spherical silhouette. The ring's world-space orientation, identity, and inter-plane relationships do not change. The renderer's discrete sampling and depth threshold must also be considered when evaluating any visual discontinuity; this observation is **not** evidence of a source-driven research-state transition.
+
+Observed screenshots (simulation): [−5° pitch](../snapshots/reference-plane-crossing/observer-pitch-minus-5.png) · [+10° pitch](../snapshots/reference-plane-crossing/observer-pitch-plus-10.png). [Annotated region observations](../snapshots/reference-plane-crossing/annotated-regions.jpeg) identify projected crossings, apparent parallelism, convergence, and nearby crossings; projected overlaps must not be classified as world-space intersections without 3D verification.
+
 ---
 
 ## VII. Relational Integrity
