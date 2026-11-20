@@ -1,5 +1,5 @@
 import fs from "node:fs/promises";
-import { assertState, markerWorldPoint, projectWorldPoint, reticleWorldPoint, sampleProjectedRing, visibleSegments } from "../src/geometry.mjs";
+import { assertState, markerWorldPoint, projectObserverReticle, projectWorldPoint, sampleProjectedRing, visibleSegments } from "../src/geometry.mjs";
 
 const state = assertState(JSON.parse(await fs.readFile(new URL("../config/gmg-a-reference-pose-v0.2.json", import.meta.url), "utf8")));
 const width = 960, height = 960, radius = 360, cx = width / 2, cy = height / 2;
@@ -13,7 +13,7 @@ for (const ring of state.rings) {
   const marker = projectWorldPoint(markerWorldPoint(ring), state.projection);
   if (marker.visible) paths.push(`<circle cx="${(cx + marker.x * radius).toFixed(2)}" cy="${(cy - marker.y * radius).toFixed(2)}" r="6" fill="#EEF2F4" stroke="#081017" stroke-width="2"/>`);
 }
-const reticle = projectWorldPoint(reticleWorldPoint(state.reticle.azimuthDeg, state.reticle.elevationDeg), state.projection);
+const reticle = projectObserverReticle(state.reticle.azimuthDeg, state.reticle.elevationDeg);
 const rx = cx + reticle.x * radius, ry = cy - reticle.y * radius;
 const metadata = JSON.stringify({stateId:state.id,projection:state.projection,rings:state.rings,reticle:state.reticle}).replaceAll("&","&amp;").replaceAll("<","&lt;");
 const svg = `<?xml version="1.0" encoding="UTF-8"?>

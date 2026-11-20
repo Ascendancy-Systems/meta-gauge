@@ -1,4 +1,4 @@
-import { assertState, markerWorldPoint, planeAngleDeg, projectWorldPoint, reticleFromFrontProjection, reticleWorldPoint, sampleProjectedRing, visibleSegments } from "./geometry.mjs";
+import { assertState, markerWorldPoint, planeAngleDeg, projectObserverReticle, projectWorldPoint, reticleFromFrontProjection, sampleProjectedRing, visibleSegments } from "./geometry.mjs";
 
 const response = await fetch("./config/gmg-a-reference-pose-v0.2.json");
 if (!response.ok) throw new Error(`Could not load instrument state: ${response.status}`);
@@ -49,7 +49,7 @@ function render() {
   }
   context.restore();
   context.strokeStyle = "#c6a96b"; context.lineWidth = 2; drawStar(cx, cy, 10, 4);
-  const reticle = projectWorldPoint(reticleWorldPoint(state.reticle.azimuthDeg, state.reticle.elevationDeg), state.projection);
+  const reticle = projectObserverReticle(state.reticle.azimuthDeg, state.reticle.elevationDeg);
   const rp = screen(reticle); context.strokeStyle = "#f1f5f7"; context.lineWidth = 1.5;
   context.beginPath(); context.arc(rp.x, rp.y, 10, 0, Math.PI * 2); context.moveTo(rp.x - 17, rp.y); context.lineTo(rp.x + 17, rp.y); context.moveTo(rp.x, rp.y - 17); context.lineTo(rp.x, rp.y + 17); context.stroke();
   updateReadouts();
@@ -95,13 +95,33 @@ controls["reset-view"].addEventListener("click", () => { state.projection.camera
 controls["reset-pose"].addEventListener("click", () => { state.rings = structuredClone(originalState.rings); syncControls(); render(); });
 controls["center-reticle"].addEventListener("click", () => { state.reticle.azimuthDeg = 0; state.reticle.elevationDeg = 0; syncControls(); render(); });
 
-canvas.addEventListener("pointerdown", (event) => { dragging = { x:event.clientX, y:event.clientY, yaw:state.projection.cameraYawDeg, pitch:state.projection.cameraPitchDeg }; canvas.setPointerCapture(event.pointerId); });
-canvas.addEventListener("pointermove", (event) => { if (!dragging) return; state.projection.cameraYawDeg = dragging.yaw + (event.clientX - dragging.x) * .35; state.projection.cameraPitchDeg = Math.max(-80, Math.min(80, dragging.pitch - (event.clientY - dragging.y) * .35)); syncControls(); render(); });
+canvas.addEventListener("pointerdown", (event) => {
+  if (!event.isPrimary || event.button !== 0) return;
+  dragging = {
+    x: event.clientX, y: event.clientY, yaw: state.projection.cameraYawDeg,
+    pitch: state.projection.cameraPitchDeg, moved: false
+  };
+  canvas.setPointerCapture(event.pointerId);
+});
+
+canvas.addEventListener("pointermove", (event) => {
+  if (!dragging || !event.isPrimary) return;
+  const dx = event.clientX - dragging.x;
+  const dy = event.clientY - dragging.y;
+  if (!dragging.moved && Math.hypot(dx, dy) < 6) return;
+  dragging.moved = true;
+  const yaw = dragging.yaw + dx * .35;
+  state.projection.cameraYawDeg = ((yaw + 180) % 360 + 360) % 360 - 180;
+  state.projection.cameraPitchDeg = Math.max(-80, Math.min(80, dragging.pitch - dy * .35));
+  syncControls();
+  render();
+});
+
 canvas.addEventListener("pointerup", (event) => {
-  if (!dragging) return;
-  const moved = Math.hypot(event.clientX - dragging.x, event.clientY - dragging.y);
+  if (!dragging || !event.isPrimary) return;
+  const wasDrag = dragging.moved || Math.hypot(event.clientX - dragging.x, event.clientY - dragging.y) >= 6;
   dragging = null; canvas.releasePointerCapture(event.pointerId);
-  if (moved < 6) {
+  if (!wasDrag) {
     const bounds = canvas.getBoundingClientRect(); const scale = canvas.width / bounds.width; const radius = canvas.width * .39;
     const x = ((event.clientX - bounds.left) * scale - canvas.width / 2) / radius;
     const y = (canvas.height / 2 - (event.clientY - bounds.top) * scale) / radius;
@@ -109,6 +129,6 @@ canvas.addEventListener("pointerup", (event) => {
     if (aimed) { state.reticle.azimuthDeg = aimed.azimuthDeg; state.reticle.elevationDeg = aimed.elevationDeg; syncControls(); render(); }
   }
 });
-canvas.addEventListener("pointercancel", () => { dragging = null; });
+canvas.addEventListener("lostpointercapture", () => { dragging = null; });
 
 syncControls(); render();

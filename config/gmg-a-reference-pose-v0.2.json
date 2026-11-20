@@ -46,6 +46,7 @@
   ],
   "reticle": {
     "mode": "free-aim",
+    "frame": "observer",
     "azimuthDeg": 0,
     "elevationDeg": 0
   },

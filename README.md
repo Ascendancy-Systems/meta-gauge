@@ -20,10 +20,10 @@ Public research prototype for **MG-001**, the registered Ascendancy Systems Meta
 
 ## What is simulation only
 
-- Ring manipulation and the crossed/reference presets are kinematic simulation.
+- Ring manipulation and the reference preset demonstrate simulated motion.
 - Colors distinguish prototype components; they do not encode ratified research domains.
 - Angle readouts measure relationships between geometric planes only.
-- The reticle reports a geometric direction on the visible hemisphere. It does not alter source data.
+- The free-aim reticle reports azimuth and elevation relative to the observer. Changing aim leaves the ring poses and camera untouched.
 
 ## What is not implemented or calibrated
 
@@ -48,7 +48,7 @@ Public research prototype for **MG-001**, the registered Ascendancy Systems Meta
 
 ## Run locally
 
-The demonstrator has no runtime dependencies, but browsers block JSON module loading from `file://`. Serve the repository with any static server, then open `index.html`.
+The demonstrator has no runtime dependencies. Serve the repository over HTTP, then open the local URL in a browser. The viewer fetches the pose JSON and loads JavaScript modules over HTTP.
 
 ```text
 python -m http.server 8000
@@ -61,7 +61,9 @@ npm test
 npm run render
 ```
 
-The checked-in PNG is generated from the SVG with a rasterizer during release preparation. The SVG remains the canonical static projection.
+The SVG is the canonical static projection. To refresh the checked-in PNG, run `node scripts/rasterize-static.cjs` with `sharp` available. The snapshots in `snapshots/` document the desktop and mobile layout. Refresh them with `node scripts/visual-smoke.cjs` with Playwright and Chromium available.
+
+GitHub Pages publishes only the browser entry point, its JavaScript, and its pose file. The repository carries the specifications, archived context, tests, and generated assets.
 
 ## Bounded next steps
 

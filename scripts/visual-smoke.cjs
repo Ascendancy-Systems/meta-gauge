@@ -27,18 +27,35 @@ const server = http.createServer((request, response) => {
   try {
     fs.mkdirSync(path.join(root, "snapshots"), {recursive:true});
     for (const [name, viewport] of [["desktop",{width:1440,height:1050}], ["mobile",{width:390,height:844}]]) {
-      const page = await browser.newPage({viewport, deviceScaleFactor:1});
+      const page = await browser.newPage({viewport, deviceScaleFactor:1, hasTouch:name === "mobile"});
       const errors = []; page.on("pageerror", (error) => errors.push(error.message));
       await page.goto(`http://127.0.0.1:${port}/`, {waitUntil:"networkidle"});
       assert.equal(await page.locator("#state-readout").textContent(), "GMG-A-REFERENCE-POSE-0.2");
       if (name === "mobile") await page.screenshot({path:path.join(root,"snapshots","mobile.png")});
-      await page.locator("#reticle-az").fill("24");
-      await page.locator("#reticle-az").dispatchEvent("input");
-      assert.match(await page.locator("#reticle-readout").textContent(), /az 24°/);
       const canvasBox = await page.locator("#gauge").boundingBox();
       assert.ok(canvasBox && canvasBox.width <= viewport.width && canvasBox.height >= 280, `${name} canvas box ${JSON.stringify(canvasBox)} viewport ${JSON.stringify(viewport)}`);
+      const {x, y, width, height} = canvasBox;
+      const aimX = x + width * .695;
+      const aimY = y + height / 2;
+      if (name === "mobile") await page.touchscreen.tap(aimX, aimY);
+      else await page.mouse.click(aimX, aimY);
+      assert.match(await page.locator("#reticle-readout").textContent(), /az 30° · el 0°/);
+      assert.equal(await page.locator("#yaw").inputValue(), "28");
+      const angle = await page.locator("#angle-readout").textContent();
+      await page.locator("#yaw").fill("-140");
+      assert.equal(await page.locator("#angle-readout").textContent(), angle);
+      assert.match(await page.locator("#reticle-readout").textContent(), /az 30°/);
+      await page.locator("#center-reticle").click();
+      assert.match(await page.locator("#reticle-readout").textContent(), /az 0° · el 0°/);
+      await page.locator("#reset-view").click();
+      await page.locator("#reticle-az").press("ArrowRight");
+      assert.match(await page.locator("#reticle-readout").textContent(), /az 1°/);
+      await page.locator("#reticle-az").fill("24");
       assert.deepEqual(errors, []);
-      if (name === "desktop") await page.screenshot({path:path.join(root,"snapshots","desktop.png")});
+      if (name === "desktop") {
+        await page.evaluate(() => window.scrollTo(0, 0));
+        await page.screenshot({path:path.join(root,"snapshots","desktop.png")});
+      }
       if (name === "mobile") await page.screenshot({path:path.join(root,"snapshots","mobile-controls.png")});
       await page.close();
     }

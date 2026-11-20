@@ -109,14 +109,13 @@ export function visibleSegments(samples) {
   return segments;
 }
 
-export function reticleWorldPoint(azimuthDeg, elevationDeg) {
+export function projectObserverReticle(azimuthDeg, elevationDeg) {
   const azimuth = degToRad(azimuthDeg);
   const elevation = degToRad(elevationDeg);
-  return [
-    Math.sin(azimuth) * Math.cos(elevation),
-    Math.sin(elevation),
-    Math.cos(azimuth) * Math.cos(elevation)
-  ];
+  return {
+    x: Math.sin(azimuth) * Math.cos(elevation),
+    y: Math.sin(elevation)
+  };
 }
 
 export function reticleFromFrontProjection(x, y) {

@@ -47,7 +47,7 @@
     <p class="notice"><strong>No live telemetry.</strong> Ring poses and angles are geometric simulation. EF-001 is not mapped to rotation, direction, or confidence.</p>
     <div class="layout">
       <section class="viewport" aria-label="Interactive spatial instrument">
-        <canvas id="gauge" width="800" height="800" tabindex="0" aria-label="Four-ring spatial gauge. Drag to move the observer or click the visible sphere to aim the reticle."></canvas>
+        <canvas id="gauge" width="800" height="800" role="img" aria-label="Four-ring spatial gauge. Drag to move the observer or click the visible sphere to aim the reticle. Equivalent keyboard controls follow."></canvas>
         <div class="viewport-caption">Drag: observer · Click/tap: reticle · far side occluded</div>
       </section>
       <aside>
@@ -72,10 +72,10 @@
           <div class="button-row"><button id="center-reticle" type="button">Center reticle</button></div>
           <p class="proposed"><strong>Proposed, not implemented:</strong> feature inspection, target lock/follow, and two-target comparison.</p>
         </fieldset>
-        <section class="panel" aria-live="polite"><div class="eyebrow">Geometric readout</div><dl class="readout"><dt>Selected / R plane angle</dt><dd id="angle-readout">—</dd><dt>Reticle direction</dt><dd id="reticle-readout">—</dd><dt>State source</dt><dd id="state-readout">—</dd></dl></section>
+        <section class="panel" aria-live="polite"><div class="eyebrow">Geometric readout</div><dl class="readout"><dt>Selected / R plane angle</dt><dd id="angle-readout">—</dd><dt>Observer-relative aim</dt><dd id="reticle-readout">—</dd><dt>Reference preset</dt><dd id="state-readout">—</dd></dl></section>
       </aside>
     </div>
-    <footer>One instrument identity, multiple representations. Static and interactive views derive from the same versioned pose. <a href="./specifications/GMG-A_spatial_perceptual_relational_specification_working_draft_v0.2.md">Specification</a> · <a href="./docs/artifact-provenance.md">Artifact provenance</a></footer>
+    <footer><a href="https://github.com/Ascendancy-Systems/meta-gauge">Source repository</a> · <a href="https://github.com/Ascendancy-Systems/meta-gauge/blob/main/specifications/GMG-A_spatial_perceptual_relational_specification_working_draft_v0.2.md">GMG-A working specification</a> · <a href="https://github.com/Ascendancy-Systems/.github/blob/main/profile/META-GAUGE.md">MG-001 instrument record</a></footer>
   </main>
   <script type="module" src="./src/app.mjs"></script>
 </body>

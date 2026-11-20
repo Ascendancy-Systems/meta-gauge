@@ -1,12 +1,12 @@
 # Artifact provenance and recovery status
 
-The referenced ChatGPT conversation, **Mapping Technology Architecture** (`6ae8619f-cd48-83e9-b9a0-9f32c9c8f392`), records that the following files were generated in assistant message `e323a0f9-7958-458b-8644-8398123826cb`:
+The original design conversation, **Mapping Technology Architecture**, records the following generated files:
 
 - `GMG-A_interactive_prototype_v0.1.html`
 - `GMG-A_specification_draft_v0.1.md`
 - `GMG-A_prototype_and_specification_v0.1.zip`
 
-The message exposes only expired/inaccessible `sandbox:/mnt/data/...` links. The thread API returned no downloadable attachments, the files were not present in the Codex workspace or the user's Downloads folder, and browser recovery could not be safely completed because the automation layer could not verify the current browser URL.
+The available conversation record exposed sandbox links without downloadable attachments. The original files are pending recovery.
 
 Accordingly:
 
