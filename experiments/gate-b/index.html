@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MG-001 / GMG-A · Gate B laboratory</title>
+  <link rel="stylesheet" href="./lab.css">
+</head>
+<body>
+  <main class="lab">
+    <header class="masthead">
+      <p class="context">Ascendancy Systems · Gate B laboratory</p>
+      <h1>MG-001 / GMG-A</h1>
+      <p class="dek">Explore a simulated phase pair in the dial and spatial assembly. The camera and reticle change how you inspect the scene.</p>
+      <a href="./snapshot.svg">Open the reference snapshot</a>
+    </header>
+
+    <p id="load-state" role="status">Loading the versioned simulation fixture…</p>
+    <noscript><p>The interactive laboratory requires JavaScript. The reference snapshot is available above.</p></noscript>
+
+    <div id="lab-content" hidden>
+      <section class="sample-strip" aria-labelledby="sample-heading">
+        <div>
+          <h2 id="sample-heading">Shared simulated sample</h2>
+          <output id="sample-readout" for="sample"></output>
+        </div>
+        <label for="sample">Sample
+          <select id="sample"></select>
+        </label>
+      </section>
+
+      <div class="views">
+        <section class="card" aria-labelledby="dial-heading">
+          <header class="card-header">
+            <p class="context">MG-001</p>
+            <h2 id="dial-heading">Toroidal dial</h2>
+            <p class="muted">Zero at twelve o’clock. Positive phases run clockwise.</p>
+          </header>
+          <div id="dial" class="graphic"></div>
+          <dl class="readouts">
+            <div><dt>θ · outer circle</dt><dd id="theta"></dd></div>
+            <div><dt>φ · inner square</dt><dd id="phi"></dd></div>
+          </dl>
+        </section>
+
+        <section class="card" aria-labelledby="spatial-heading">
+          <header class="card-header">
+            <p class="context">GMG-A</p>
+            <h2 id="spatial-heading">Spatial assembly</h2>
+            <p id="spatial-readout" class="muted"></p>
+          </header>
+          <div id="spatial" class="graphic"></div>
+          <p class="reticle" id="reticle-readout"></p>
+          <div class="camera-controls">
+            <label for="yaw">Yaw <output id="yaw-value" for="yaw"></output>
+              <input id="yaw" type="range" min="-180" max="180" step="1">
+            </label>
+            <label for="pitch">Pitch <output id="pitch-value" for="pitch"></output>
+              <input id="pitch" type="range" min="-80" max="80" step="1">
+            </label>
+            <label for="target" class="target">Reticle target
+              <select id="target"></select>
+            </label>
+            <button type="button" id="reset-camera">Reset camera</button>
+          </div>
+          <div class="ring-table">
+            <table>
+              <caption>Ring geometry</caption>
+              <thead><tr><th scope="col">Ring and pattern</th><th scope="col">To R</th><th scope="col">Marker phase</th></tr></thead>
+              <tbody id="rings"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <section class="card evidence" aria-labelledby="evidence-heading">
+        <h2 id="evidence-heading">MG-001 assessment snapshot</h2>
+        <p class="muted">Pinned qualitative source labels. The recorded assessment supplies no simulated phases or ring geometry.</p>
+        <dl id="status-registers"></dl>
+        <p class="muted">EF-001 covers one public research-orientation statement. Authority is unverified. <a href="https://github.com/Ascendancy-Systems/.github/blob/c7401e3c7b5f0033a86566a74d8e3308d146fee6/profile/META-GAUGE.md">Read the pinned operational record</a>.</p>
+      </section>
+      <footer class="lab-footer">
+        <p id="provenance"></p>
+        <a href="./README.md">Laboratory notes and reproduction steps</a>
+      </footer>
+    </div>
+  </main>
+  <script type="module" src="./lab.mjs"></script>
+</body>
+</html>
