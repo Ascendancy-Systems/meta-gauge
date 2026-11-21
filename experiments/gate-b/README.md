@@ -1,6 +1,6 @@
 # MG-001 / GMG-A Gate B laboratory
 
-An isolated dual-view simulation for review. The Gate B lab uses the [Gate A contract](../../docs/MG-001_GMG-A_gate_a_contract_v0.4.md), the [versioned draft fixture](../../tests/fixtures/v04-dual-view.json), and the preserved [v0.2 base pose](../../config/gmg-a-reference-pose-v0.2.json). The repository's Pages workflow stages the existing viewer only. This laboratory stays outside that deployment.
+The isolated dual-view simulation accepted at Gate B. The lab uses the [Gate A contract](../../docs/MG-001_GMG-A_gate_a_contract_v0.4.md), the [versioned draft fixture](../../tests/fixtures/v04-dual-view.json), and the preserved [v0.2 base pose](../../config/gmg-a-reference-pose-v0.2.json). The repository's Pages workflow stages the existing viewer only. This laboratory stays outside that deployment. See the [development status](../../docs/development-status.md).
 
 ## Using the simulation
 
@@ -44,4 +44,4 @@ The browser checks start a temporary loopback server, exercise desktop and 390-p
 
 ## Next gate
 
-Gate C can add validated simulation traces and D1/D2 reticles with a declared connection, time base, and gap behavior. This lab uses two illustrative Y samples and discrete selection. It supplies no operational measurements, automatic calibration, or publication decision.
+[Gate C](../../docs/development-status.md#gate-c--simulation-dynamics) will address simulated trajectories and validated D1/D2 reticles with a declared connection, time base, frame, and gap behavior. This lab uses two illustrative Y samples and discrete selection. It supplies no operational measurements, automatic calibration, or publication decision.

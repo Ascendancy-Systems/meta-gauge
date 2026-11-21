@@ -2,15 +2,19 @@
 
 Public research prototype for **MG-001**, the registered Ascendancy Systems Meta-Gauge, and **GMG-A**, its experimental gyroscopic/spatial implementation.
 
-**Status:** experimental geometric demonstrator. The viewer measures angles between simulated planes. The [MG-001 operational record](https://github.com/Ascendancy-Systems/.github/blob/main/profile/META-GAUGE.md) carries the qualitative EF-001 assessment.
+**Status:** the public GMG-A viewer remains the v0.2 geometric demonstrator. Working Draft v0.4, the Gate A verification contract, and the isolated Gate B simulation have been reviewed and merged. Gate C is the next technical development gate. See the [development status](./docs/development-status.md).
 
-[Open the interactive demonstrator](https://ascendancy-systems.github.io/meta-gauge/) · [Read the v0.2 working specification](./specifications/GMG-A_spatial_perceptual_relational_specification_working_draft_v0.2.md) · [Specification index](./specifications/README.md) · [Front Desk](https://ascendancy-systems.github.io/front-desk/)
+[Open the public v0.2 viewer](https://ascendancy-systems.github.io/meta-gauge/) · [Specification index](./specifications/README.md) · [Gate B laboratory and local run instructions](./experiments/gate-b/README.md) · [Front Desk](https://ascendancy-systems.github.io/front-desk/)
 
-Working Draft v0.3 proposes a toroidal dial alongside the spatial assembly. It is awaiting ratification and implementation. [Read the dual-instrument draft](./specifications/MG-001_GMG-A_Dual_Instrument_Working_Specification_v0.3.md).
+[Working Draft v0.4](./specifications/MG-001_GMG-A_Dual_Instrument_Working_Specification_v0.4.md) describes the dual-instrument design. Its supporting material includes the [mathematical notes](./docs/MG-001_GMG-A_mathematical_notes_v0.4.md), [visual atlas](./docs/visual-atlas/v0.4.md), and [Gate A state and verification contract](./docs/MG-001_GMG-A_gate_a_contract_v0.4.md). The [Gate B snapshot](./experiments/gate-b/snapshot.svg) shows the default laboratory scene.
+
+The [MG-001 operational record](https://github.com/Ascendancy-Systems/.github/blob/main/profile/META-GAUGE.md) contains EF-001, a bounded qualitative assessment of one public research-orientation statement. Gate B represents simulated toroidal and spatial states. Neither provides a validated quantitative measurement of Ascendancy’s research program. The possibility of a general-purpose Meta-Gauge family is under consideration, with Ascendancy-specific measurement models as one possible application. The registered instrument and institutional identities retain their current definitions.
 
 ![GMG-A reference pose](./assets/gmg-a-reference-pose-v0.2.png)
 
 ## What works
+
+Public v0.2 demonstrator:
 
 - Four independently posed ring planes are projected from a three-dimensional world model.
 - Far-side arcs are concealed by the spherical front-hemisphere projection.
@@ -19,6 +23,12 @@ Working Draft v0.3 proposes a toroidal dial alongside the spatial assembly. It i
 - A reference-independent observer reticle can be moved by pointer, touch, keyboard-accessible sliders, or a center command.
 - The static SVG/PNG and browser demonstrator consume the same explicit pose and projection in [`config/gmg-a-reference-pose-v0.2.json`](./config/gmg-a-reference-pose-v0.2.json).
 - Geometric tests cover camera invariance, far-side occlusion, marker phase, and static/demo state identity.
+
+Isolated Gate B laboratory:
+
+- A selected Y simulation sample drives both dial phases and the full trial GMG-A attitude. The camera, ring marker phases, and qualitative assessment record retain separate state.
+- The lab has an observer-center reference and explicit world and ring-marker targets. An occluded target retains its identity while its pointer is hidden.
+- The local interactive view and the reference SVG share the same versioned fixture and render code for the default scene.
 
 ## What is simulation only
 
@@ -31,9 +41,9 @@ Working Draft v0.3 proposes a toroidal dial alongside the spatial assembly. It i
 
 - No EF-001 state is converted into an angle, pose, speed, or target.
 - No live telemetry is present.
-- Reticle target lock and two-target comparison remain proposals described in the v0.2 specification.
+- The public v0.2 viewer retains free aim. Gate B's world and ring-marker locks are available in the local laboratory. Two-target comparison remains proposed.
 - Historical orientation terms—Proper, Anti, Anmti, Amnti, and Anmnti—have no assigned colors, angles, or mechanics.
-- The original conversation-generated v0.1 HTML and v0.1 Markdown specification could not be recovered from the referenced chat attachment store in this run. They have not been silently reconstructed; see [artifact provenance](./docs/artifact-provenance.md).
+- The original GMG-A v0.1 artifacts remain pending recovery. See [artifact provenance](./docs/artifact-provenance.md).
 
 ## Project map
 
@@ -45,7 +55,9 @@ Working Draft v0.3 proposes a toroidal dial alongside the spatial assembly. It i
 | `config/gmg-a-reference-pose-v0.2.json` | Versioned reference pose and camera projection |
 | `scripts/render-static.mjs` | Deterministic SVG generator from the same state |
 | `assets/` | Generated reference SVG and mobile-compatible PNG |
-| `specifications/` | Spatial v0.2 and dual-instrument v0.3 working drafts |
+| [Specifications](./specifications/README.md) | Spatial v0.2, historical dual-instrument v0.3, and current Working Draft v0.4 |
+| [Gate B laboratory](./experiments/gate-b/README.md) | Local dual-view simulation and reproducible reference snapshot |
+| [Development status](./docs/development-status.md) | Gate history, Gate C scope, and measurement and release boundaries |
 | [Artifact provenance](./docs/artifact-provenance.md) | Recovery status for the original v0.1 artifacts |
 | `tests/` | Geometry, occlusion, marker, and consistency tests |
 | [Reference-plane snapshots](./snapshots/reference-plane-crossing/) | The [observer-pitch test](./tests/reference-plane-transition.test.mjs) explains why the visible arc changes when the observer crosses the plane. |
@@ -55,10 +67,10 @@ Working Draft v0.3 proposes a toroidal dial alongside the spatial assembly. It i
 The demonstrator has no runtime dependencies. Serve the repository over HTTP, then open the local URL in a browser. The viewer fetches the pose JSON and loads JavaScript modules over HTTP.
 
 ```text
-python -m http.server 8000
+python -m http.server 8000 --bind 127.0.0.1
 ```
 
-Run the dependency-free geometry tests with `npm test`. The desktop and mobile layout snapshots can be refreshed with `node scripts/visual-smoke.cjs` when Playwright and Chromium are available.
+Open [v0.2 locally](http://127.0.0.1:8000/) or the [local Gate B laboratory](http://127.0.0.1:8000/experiments/gate-b/). For checks, run `npm ci --ignore-scripts` and `npm run check` from the repository root. The [Gate B notes](./experiments/gate-b/README.md#reproduce) describe snapshot regeneration and the optional browser checks.
 
 ## Updating the reference pose
 
@@ -73,12 +85,10 @@ npm run render:pose
 
 Review the viewer and the PNG side by side. Stage the pose and both reference images together, then run `npm run check`. Pull requests and Pages deployments run the same check. It regenerates the SVG and checks the PNG byte for byte using the locked renderer and fonts.
 
-GitHub Pages publishes only the browser entry point, its JavaScript, and its pose file. The repository carries the specifications, archived context, tests, and generated assets.
+GitHub Pages stages the v0.2 browser entry point, its JavaScript, and its pose file. The [Pages workflow](./.github/workflows/pages.yml) leaves the Gate B laboratory, specifications, and tests outside that deployment.
 
 ## Bounded next steps
 
-1. Recover and commit the exact original `GMG-A_interactive_prototype_v0.1.html` and `GMG-A_specification_draft_v0.1.md`, preserving their hashes and provenance.
-2. Implement reticle hit-testing, world/ring target lock, and reproducible two-target geometric comparison.
-3. Define and review one defensible source-to-geometry mapping before any informational pose is published.
+**Gate C** covers simulated trajectories, validated D1/D2, declared time bases and reference frames, missing-data behavior, and reticle semantics. **Gate D** requires a separately reviewed measurement model before any quantitative assessment. **Gate E** covers public integration and release review. The current scope is repository documentation and local simulation. See the [gate record](./docs/development-status.md).
 
 No license is granted by omission; publication here is for public inspection and research prototyping until Ascendancy Systems selects an explicit license.
