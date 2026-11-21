@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+<title id="title">Wrapped phase can hide a longer turn</title><desc id="desc">Starting at zero, two possible phase lifts reach plus pi over two and minus three pi over two after one second. The final wrapped value is identical.</desc>
+<metadata>{"figure":"FIG-MG04-05","revision":"0.4","status":"mathematical illustration; no empirical telemetry","generator":"scripts/generate-mathematical-figures.mjs"}</metadata>
+<rect width="1200" height="720" fill="#080C11"/>
+<text x="56" y="54" fill="#C6A96B" font-family="DejaVu Sans,Segoe UI,Arial,sans-serif" font-size="15" text-anchor="start" font-weight="700">FIG-MG04-05</text><text x="56" y="91" fill="#D6DCE3" font-family="DejaVu Sans,Segoe UI,Arial,sans-serif" font-size="29" text-anchor="start" font-weight="600">Wrapped phase can hide a longer turn</text>
+<text x="56" y="130" fill="#D6DCE3" font-family="DejaVu Sans,Segoe UI,Arial,sans-serif" font-size="22" text-anchor="start" font-weight="400">Two continuous lifts yield the same two wrapped samples.</text>
+    <line x1="155" y1="225" x2="1065" y2="225" stroke="#94A0AA" stroke-width="1" stroke-dasharray="5 7"/><text x="139" y="231" fill="#D6DCE3" font-family="DejaVu Sans,Segoe UI,Arial,sans-serif" font-size="20" text-anchor="end" font-weight="400">+π/2</text><line x1="155" y1="285" x2="1065" y2="285" stroke="#94A0AA" stroke-width="1" stroke-dasharray="5 7"/><text x="139" y="291" fill="#D6DCE3" font-family="DejaVu Sans,Segoe UI,Arial,sans-serif" font-size="20" text-anchor="end" font-weight="400">0</text><line x1="155" y1="465" x2="1065" y2="465" stroke="#94A0AA" stroke-width="1" stroke-dasharray="5 7"/><text x="139" y="471" fill="#D6DCE3" font-family="DejaVu Sans,Segoe UI,Arial,sans-serif" font-size="20" text-anchor="end" font-weight="400">−3π/2</text>
+    <line x1="235" y1="285" x2="965" y2="225" stroke="#6F9FCB" stroke-width="5"/>
+    <line x1="235" y1="285" x2="965" y2="465" stroke="#D7BD72" stroke-width="5" stroke-dasharray="14 8"/>
+    <circle cx="235" cy="285" r="9" fill="#D6DCE3"/>
+    <circle cx="965" cy="225" r="9" fill="#6F9FCB"/>
+    <rect x="957" y="457" width="16" height="16" fill="#D7BD72"/>
+    <text x="235" y="561" fill="#D6DCE3" font-family="DejaVu Sans,Segoe UI,Arial,sans-serif" font-size="20" text-anchor="middle" font-weight="400">t = 0 s</text>
+    <text x="965" y="561" fill="#D6DCE3" font-family="DejaVu Sans,Segoe UI,Arial,sans-serif" font-size="20" text-anchor="middle" font-weight="400">t = 1 s</text>
+    <text x="605" y="607" fill="#D6DCE3" font-family="DejaVu Sans,Segoe UI,Arial,sans-serif" font-size="23" text-anchor="middle" font-weight="400">Both endpoints at t = 1 reduce to π/2 radians modulo 2π.</text>
+    <text x="605" y="647" fill="#94A0AA" font-family="DejaVu Sans,Segoe UI,Arial,sans-serif" font-size="20" text-anchor="middle" font-weight="400">The shortest step needs a justified strict bound below π.</text>
+<text x="56" y="690" fill="#94A0AA" font-family="DejaVu Sans,Segoe UI,Arial,sans-serif" font-size="13" text-anchor="start" font-weight="400">PROPOSED MATHEMATICAL MODEL · REPRODUCIBLE FIGURE · NOT EMPIRICAL TELEMETRY</text>
+</svg>

@@ -150,6 +150,66 @@ function redVisibilityFigure() {
     ${text(600, 609, "R world normal = +z throughout   ·   yaw = 0°   ·   depth tolerance = 0.000001", 17, palette.muted, "middle")}`, 675);
 }
 
+function samplingFigure() {
+  const left = 155, right = 1065, top = 165, bottom = 525;
+  const start = left + 80, stop = right - 100;
+  const phaseY = (angle) => bottom - (angle + 2 * Math.PI) / (3 * Math.PI) * (bottom - top);
+  const upper = phaseY(Math.PI / 2), lower = phaseY(-3 * Math.PI / 2), zero = phaseY(0);
+  const ticks = [[Math.PI / 2, "+π/2"], [0, "0"], [-3 * Math.PI / 2, "−3π/2"]];
+  const body = `${text(56, 130, "Two continuous lifts yield the same two wrapped samples.", 22)}
+    ${ticks.map(([phase, label]) => `${line(left, phaseY(phase), right, phaseY(phase), palette.muted, 1, "5 7")}${text(left - 16, phaseY(phase) + 6, label, 20, palette.line, "end")}`).join("")}
+    ${line(start, zero, stop, upper, palette.blue, 5)}
+    ${line(start, zero, stop, lower, palette.yellow, 5, "14 8")}
+    <circle cx="${start}" cy="${zero}" r="9" fill="${palette.line}"/>
+    <circle cx="${stop}" cy="${upper}" r="9" fill="${palette.blue}"/>
+    <rect x="${stop - 8}" y="${lower - 8}" width="16" height="16" fill="${palette.yellow}"/>
+    ${text(start, 561, "t = 0 s", 20, palette.line, "middle")}
+    ${text(stop, 561, "t = 1 s", 20, palette.line, "middle")}
+    ${text(605, 607, "Both endpoints at t = 1 reduce to π/2 radians modulo 2π.", 23, palette.line, "middle")}
+    ${text(605, 647, "The shortest step needs a justified strict bound below π.", 20, palette.muted, "middle")}`;
+  return shell("FIG-MG04-05", "Wrapped phase can hide a longer turn",
+    "Starting at zero, two possible phase lifts reach plus pi over two and minus three pi over two after one second. The final wrapped value is identical.", body);
+}
+
+function derivativeFigure() {
+  const theta = Math.PI / 4, phi = Math.PI / 2, R = 3, r = 1;
+  const colors = [palette.line, palette.yellow, palette.blue];
+  const xy = (angle, cy, cameraScale) => {
+    const [x, y] = torusPoint(angle, phi, R, r);
+    return [600 + 44 * x, cy - 44 * cameraScale * y];
+  };
+  const panels = [[600, 1, "Embedded top-circle view", "Induced components: (0, 3) rad/s²"],
+                  [973, 0.5, "Oblique screen view", "Screen units depend on projection"]].map(
+    ([cx, factor, heading, label], i) => {
+      const cy = 362;
+      const project = (angle) => {
+        const [x, y] = xy(angle, cy, factor);
+        return [x + cx - 600, y];
+      };
+      const locus = Array.from({ length: 129 }, (_, k) => project(k / 128 * 2 * Math.PI));
+      const [x, y] = project(theta);
+      const tipX = x + 0.55 * (cx - x), tipY = y + 0.55 * (cy - y);
+      return `${text(cx, 213, heading, 22, palette.line, "middle", 700)}
+        <polyline points="${points(locus)}" fill="none" stroke="${palette.muted}" stroke-width="2"/>
+        <line x1="${x}" y1="${y}" x2="${tipX}" y2="${tipY}" stroke="${colors[i + 1]}" stroke-width="5" marker-end="url(#d2-${i})"/>
+        <circle cx="${x}" cy="${y}" r="7" fill="${colors[i + 1]}"/>
+        ${text(cx, 533, label, 18, colors[i + 1], "middle")}`;
+    });
+  const markers = colors.slice(1).map((color, i) =>
+    `<marker id="d2-${i}" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 Z" fill="${color}"/></marker>`);
+  return shell("FIG-MG04-06", "One trajectory, three acceleration models",
+    "The lifted angle grows linearly at constant phi. Flat acceleration is zero. The embedded top circle and its oblique screen projection have inward acceleration at the displayed point.",
+    `<defs>${markers.join("")}</defs>
+    ${text(56, 130, "θ(t) = t,  φ = π/2,  Rmaj = 3,  rmin = 1,  shown at t = π/4 s.", 21)}
+    ${text(227, 213, "Flat coordinates", 22, palette.line, "middle", 700)}
+    ${line(95, 362, 359, 362, palette.muted, 3)}
+    <circle cx="227" cy="362" r="7" fill="${palette.line}"/>
+    ${text(227, 403, "Straight lift at constant φ", 18, palette.muted, "middle")}
+    ${text(227, 533, "Flat components: (0, 0) rad/s²", 18, palette.line, "middle")}
+    ${panels.join("")}
+    ${text(605, 600, "Each arrow shows its own frame and scale. Compare directions within a panel.", 19, palette.muted, "middle")}`, 675);
+}
+
 const check = process.argv.includes("--check");
 if (!check) await fs.mkdir(target, { recursive: true });
 const figures = [
@@ -157,6 +217,8 @@ const figures = [
   ["fig-mg04-02-dual-track-dial.svg", dialFigure()],
   ["fig-mg04-03-adapter-normal.svg", adapterFigure()],
   ["fig-mg04-04-red-visibility.svg", redVisibilityFigure()],
+  ["fig-mg04-05-wrapped-sampling.svg", samplingFigure()],
+  ["fig-mg04-06-derivative-frames.svg", derivativeFigure()],
 ];
 await Promise.all(figures.map(async ([name, content]) => {
   const file = path.join(target, name);

@@ -8,7 +8,7 @@
 
 **MG-001 orients. GMG-A describes.** MG-001 remains the registered public orientation instrument. GMG-A is its experimental spatial and perceptual assembly. They can present different views of a common, versioned state while retaining separate geometric responsibilities and the existing source authority.
 
-[Mathematical notes and proofs](../docs/MG-001_GMG-A_mathematical_notes_v0.4.md) · [Visual atlas and diagram registry](../docs/visual-atlas/v0.4.md)
+[Mathematical notes and proofs](../docs/MG-001_GMG-A_mathematical_notes_v0.4.md) · [Visual atlas and diagram registry](../docs/visual-atlas/v0.4.md) · [Gate A state and verification contract](../docs/MG-001_GMG-A_gate_a_contract_v0.4.md)
 
 ## 1. Source baseline and review changes
 
@@ -28,10 +28,11 @@
 | RC-02 · Dial zero and sense were unspecified | Keep the mathematical circle and explicitly convert to twelve o’clock / clockwise screen coordinates for the proposed dial. |
 | RC-03 · Acceleration and twist required additional structure | Keep the flat angular connection as default. Derive the optional induced-metric case and declare a flat transport rule for the optional line bundle. |
 | RC-04 · A visible arc “flip” and shortest-arc estimate require qualifications | Derive the camera-dependent visibility inequality including the tolerance band. State the strict sampling bound and the half-turn ambiguity. |
+| RC-05 · Gate A follow-up | Specify independent simulation, assessment, and viewer records. Reject missing numerics and test supported interval failures. Retain the published v0.2 pose convention. |
 
 ## 2. Instrument boundaries and conventions
 
-Define a versioned record $S$ with a discriminated value type (simulated phase pair, authorized qualitative assessment, or unavailable). Let $C$ be the independent observer pose. The views are $I_{\rm dial}=P_{\rm MG}(S)$ and $I_{\rm spatial}=P_{\rm GMG}(S,C)$, with the latter using a versioned adapter only for an eligible simulated channel. Selection can synchronize the two views as interaction state. Selection, camera orbit, reticle movement, and easing leave the underlying record intact.
+Define $S$ as a versioned envelope with independent simulation and assessment snapshots and explicit viewer state. Within the assessment snapshot, each register is a qualitative reading or is unavailable with a reason. A single view can present a simulation beside an assessment. Let $C$ be the independent observer pose. The views are $I_{\rm dial}=P_{\rm MG}(S)$ and $I_{\rm spatial}=P_{\rm GMG}(S,C)$, with the latter using a versioned adapter only for an eligible simulated channel. Selection can synchronize the two views as interaction state. Selection, camera orbit, reticle movement, and easing leave the simulation and assessment snapshots intact. The [Gate A contract](../docs/MG-001_GMG-A_gate_a_contract_v0.4.md) specifies the trial envelope and its failure cases.
 
 **DG-01 · View and evidence paths.** Arrows indicate permitted information flow. The qualitative path ends in a status display.
 
@@ -211,7 +212,7 @@ Proposed desktop views are side by side and stack on narrow devices. Show the se
 - [ ] Gate D · Pilot one justified reading with freshness and missing-value behavior. Validate the measurement method before introducing numbers.
 - [ ] Gate E · Require perceptual and accessibility review, archival continuity, and explicit public release approval.
 
-Gate A is the mathematical and documentation review in this revision. Spatial v0.2's target lock, comparison, relational scene, and commissioning gates remain applicable to later implementation.
+Gate A is the mathematical and documentation review in this revision. The [verification matrix](../docs/MG-001_GMG-A_gate_a_contract_v0.4.md#acceptance-matrix) identifies executable checks and remaining review decisions. Spatial v0.2's target lock, comparison, relational scene, and commissioning gates remain applicable to later implementation.
 
 ### Open hypotheses and decisions
 

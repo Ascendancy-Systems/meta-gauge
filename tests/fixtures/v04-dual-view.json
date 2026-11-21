@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "mg001-gmga-draft-0.4.1",
+  "simulation": {
+    "modelId": "torus-T2",
+    "adapterId": "trial-rz-rx-v0.4",
+    "twist": "off",
+    "samples": [
+      {
+        "id": "sim-00",
+        "channelId": "Y",
+        "timeS": 0,
+        "phaseRad": { "theta": 1.02, "phi": 4.62 }
+      },
+      {
+        "id": "sim-01",
+        "channelId": "Y",
+        "timeS": 1,
+        "phaseRad": { "theta": 1.22, "phi": 4.72 }
+      }
+    ]
+  },
+  "assessmentSnapshot": {
+    "revision": "c7401e3c7b5f0033a86566a74d8e3308d146fee6",
+    "registers": [
+      { "id": "constitutional-north", "kind": "unavailable", "reason": "unassessed" },
+      {
+        "id": "epistemic-fix",
+        "kind": "qualitative",
+        "signalId": "EF-001",
+        "state": "provisionally-supported",
+        "scope": "public-research-orientation",
+        "method": "manual-source-comparison",
+        "evidenceVisibility": "private",
+        "authorityVerified": false,
+        "displayAuthority": "display-only",
+        "assessedAt": "2026-11-20",
+        "freshness": "unverified"
+      },
+      { "id": "continuity-drift", "kind": "unavailable", "reason": "unassessed" },
+      { "id": "dependency-readiness", "kind": "unavailable", "reason": "unassessed" }
+    ]
+  },
+  "viewer": {
+    "selectedSampleId": "sim-00",
+    "observer": { "yawDeg": 0, "pitchDeg": -5 }
+  }
+}
